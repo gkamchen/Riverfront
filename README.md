@@ -10,7 +10,7 @@ Riverfront é o sucessor do [Tower_Destroyer2D](https://github.com/gkamchen/Towe
 
 **[gkamchen.github.io/Riverfront](https://gkamchen.github.io/Riverfront/)**
 
-A demo atual é o protótipo visual: tabuleiro 3D, câmera, animações de tiro e explosão, contra um bot simples. O nome dentro do jogo ainda aparece como "Tower Destroyer" (nome provisório).
+A demo atual é o protótipo visual: tabuleiro 3D, câmera, animações de tiro e explosão, contra um bot simples.
 
 ## Evolução
 
