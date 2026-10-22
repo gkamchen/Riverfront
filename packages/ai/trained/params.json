@@ -1,0 +1,38 @@
+{
+ "version": 6,
+ "params": {
+  "xadrez": {
+   "hitWeight": 44.06,
+   "bombMin": 0.202,
+   "repairSpare": 1.09,
+   "radarEnergy": 9,
+   "spyEnergy": 6.544,
+   "avoidPower": 3.638,
+   "touchPenalty": 0.39,
+   "priorStrength": 4.042
+  },
+  "abismo": {
+   "shieldValue": 0.506,
+   "spyValue": 3.708,
+   "bombBonus": 0.35,
+   "radarFactor": 1.632,
+   "repairValue": 0.29,
+   "repairEnergy": 4.995,
+   "minValue": 0.373,
+   "starveFactor": 0.368,
+   "avoidPower": 2.757,
+   "priorStrength": 2.17,
+   "towerBias": 1.385
+  }
+ },
+ "use": {
+  "4": {
+   "params": true,
+   "priors": true
+  },
+  "5": {
+   "params": true,
+   "priors": true
+  }
+ }
+}

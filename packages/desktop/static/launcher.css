@@ -1,0 +1,175 @@
+:root {
+  color-scheme: dark;
+  --fundo: #1b140d;
+  --cartao: #2b2116;
+  --borda: #6b5636;
+  --texto: #f3eee2;
+  --suave: #c4b493;
+  --ouro: #e2c78d;
+  --erro: #ff9b8a;
+  --ok: #8fe0a2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #3a2b1a, var(--fundo) 70%);
+  color: var(--texto);
+  font: 15px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: 44px;
+  margin: 0;
+  letter-spacing: 0.04em;
+  color: var(--ouro);
+}
+
+.sub {
+  margin: 4px 0 0;
+  color: var(--suave);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--suave);
+}
+
+label {
+  font-size: 13px;
+  color: var(--suave);
+  margin-top: 4px;
+}
+
+input {
+  font: inherit;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid #a68d62;
+  background: #f6f0e2;
+  color: #1d1710;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row input {
+  flex: 1;
+  min-width: 90px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #8c7244;
+  background: var(--ouro);
+  color: #1d1710;
+  margin-top: 6px;
+}
+
+button:hover:not(:disabled) {
+  background: #f0d69d;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--texto);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+li {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+}
+
+li span {
+  flex: 1;
+  min-width: 160px;
+  word-break: break-all;
+}
+
+li button {
+  margin: 0;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+.dica {
+  font-size: 12px;
+}
+
+.ok {
+  color: var(--ok) !important;
+}
+
+.erro {
+  color: var(--erro) !important;
+  min-height: 1.2em;
+}
+
+footer {
+  margin-top: 28px;
+  text-align: center;
+  color: var(--suave);
+  font-size: 12px;
+}

@@ -1,0 +1,94 @@
+{
+  "name": "@riverfront/desktop",
+  "productName": "Riverfront",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Riverfront para computador: jogo completo com modo de hospedar partida na rede local.",
+  "author": "Gustavo Kamchen <gkamchen@gmail.com>",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkamchen/Riverfront.git",
+    "directory": "packages/desktop"
+  },
+  "homepage": "https://github.com/gkamchen/Riverfront",
+  "main": "dist/main.cjs",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node build.mjs",
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis portable --x64 --publish never",
+    "dist:mac": "electron-builder --mac dmg --x64 --arm64 --publish never",
+    "dist:linux": "electron-builder --linux AppImage --x64 --publish never",
+    "dist:dir": "electron-builder --dir --publish never"
+  },
+  "devDependencies": {
+    "@riverfront/server": "0.1.0",
+    "@types/node": "22.20.5",
+    "electron": "44.6.0",
+    "electron-builder": "26.15.3",
+    "esbuild": "0.28.2"
+  },
+  "build": {
+    "appId": "br.com.kamchen.riverfront",
+    "productName": "Riverfront",
+    "copyright": "Copyright © 2026 Gustavo Kamchen. Licença PolyForm Noncommercial 1.0.0.",
+    "directories": {
+      "output": "../../release/desktop",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "npmRebuild": false,
+    "nodeGypRebuild": false,
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Riverfront",
+      "artifactName": "${productName}-${version}-instalador-${arch}.${ext}",
+      "license": "build/license.txt"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portatil-${arch}.${ext}"
+    },
+    "mac": {
+      "icon": "build/icon.png",
+      "category": "public.app-category.board-games",
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "icon": "build/icons",
+      "category": "Game",
+      "target": [
+        "AppImage"
+      ],
+      "maintainer": "Gustavo Kamchen <gkamchen@gmail.com>"
+    },
+    "extraResources": [
+      {
+        "from": "../../THIRD_PARTY_NOTICES.txt",
+        "to": "THIRD_PARTY_NOTICES.txt"
+      },
+      {
+        "from": "../../LICENSE",
+        "to": "LICENSE.txt"
+      }
+    ],
+    "publish": null
+  }
+}

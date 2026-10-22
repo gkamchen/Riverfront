@@ -1,0 +1,146 @@
+name: Release
+
+# Ao subir uma tag v* (ex.: v0.2.0): gera os instaladores nos três sistemas e o
+# pacote do servidor, guarda tudo como artefatos e publica uma Release no
+# repositório definido na variável RELEASE_REPO (ex.: gkamchen/Riverfront, o próprio repositório
+# público do código, ou um separado só para binários).
+#
+# As actions estão fixadas pelo SHA do commit (o comentário diz a versão), conferidos na API
+# do GitHub quando foram fixados. Para atualizar, troque o SHA pelo da tag nova.
+#
+# Configuração (Settings > Secrets and variables > Actions):
+#   - variável RELEASE_REPO: "dono/repositorio" que recebe as releases
+#   - segredo RELEASES_TOKEN: token fine-grained com "Contents: Read and write" só nesse repositório
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  desktop:
+    name: Desktop (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            script: dist:win
+            files: |
+              release/desktop/*.exe
+              release/desktop/*.blockmap
+          - name: macOS
+            os: macos-latest
+            script: dist:mac
+            files: |
+              release/desktop/*.dmg
+              release/desktop/*.blockmap
+          - name: Linux
+            os: ubuntu-latest
+            script: dist:linux
+            files: release/desktop/*.AppImage
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Versão a partir da tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: node scripts/sync-version.mjs "$TAG"
+
+      - name: Testes
+        run: npm test
+
+      - name: Instaladores
+        run: npm run ${{ matrix.script }}
+        env:
+          # Sem certificado de assinatura por enquanto (veja docs/distribution.md).
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: desktop-${{ matrix.os }}
+          path: ${{ matrix.files }}
+          if-no-files-found: error
+          retention-days: 14
+
+  server:
+    name: Servidor dedicado
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Versão a partir da tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: node scripts/sync-version.mjs "$TAG"
+
+      - name: Pacote do servidor
+        run: npm run pack:server
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: server
+          path: release/server/*.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publicar release
+    needs: [desktop, server]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Conferir configuração
+        env:
+          RELEASE_REPO: ${{ vars.RELEASE_REPO }}
+          HAS_TOKEN: ${{ secrets.RELEASES_TOKEN != '' }}
+        run: |
+          if [ -z "$RELEASE_REPO" ]; then echo "::error::Defina a variável RELEASE_REPO (dono/repositorio)."; exit 1; fi
+          if [ "$HAS_TOKEN" != "true" ]; then echo "::error::Defina o segredo RELEASES_TOKEN."; exit 1; fi
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Lista de arquivos
+        run: ls -la dist
+
+      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          repository: ${{ vars.RELEASE_REPO }}
+          token: ${{ secrets.RELEASES_TOKEN }}
+          tag_name: ${{ github.ref_name }}
+          name: Riverfront ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          files: dist/*
+          body: |
+            ## Riverfront ${{ github.ref_name }}
+
+            **Windows:** `Riverfront-*-instalador-x64.exe` (instalador) ou `Riverfront-*-portatil-x64.exe` (não precisa instalar).
+            **macOS:** `.dmg` (x64 para Intel, arm64 para Apple Silicon).
+            **Linux:** `.AppImage` (dê permissão de execução e abra).
+            **Servidor dedicado:** `riverfront-server-*.zip` (precisa de Node.js 20+ ou Docker; veja o LEIA-ME dentro do zip).
+
+            Os instaladores ainda não são assinados: o Windows pode mostrar o aviso do SmartScreen ("Mais informações" > "Executar assim mesmo") e o macOS pede para abrir pelo menu de contexto na primeira vez.

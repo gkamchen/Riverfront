@@ -1,0 +1,51 @@
+{
+  "name": "riverfront",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Riverfront: batalha por turnos em 3D, no espírito do Batalha Naval.",
+  "author": "Gustavo Kamchen <gkamchen@gmail.com>",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkamchen/Riverfront.git"
+  },
+  "homepage": "https://github.com/gkamchen/Riverfront",
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/ai",
+    "packages/client",
+    "packages/protocol",
+    "packages/server",
+    "packages/desktop"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @riverfront/client",
+    "build": "node scripts/third-party-notices.mjs && npm run build -w @riverfront/core && npm run build -w @riverfront/ai && npm run build -w @riverfront/protocol && npm run build -w @riverfront/client && npm run build -w @riverfront/server",
+    "test": "npm run test -w @riverfront/core && npm run test -w @riverfront/ai && npm run test -w @riverfront/client && npm run test -w @riverfront/protocol && npm run test -w @riverfront/server",
+    "preview": "npm run preview -w @riverfront/client",
+    "sim": "npm run sim -w @riverfront/ai --",
+    "server": "npm run start -w @riverfront/server",
+    "dev:server": "npm run dev -w @riverfront/server",
+    "test:load": "npm run test:load -w @riverfront/server",
+    "icons": "node scripts/make-icons.mjs",
+    "pack:server": "npm run build && node scripts/pack-server.mjs",
+    "build:desktop": "npm run build && npm run build -w @riverfront/desktop",
+    "desktop": "npm run build:desktop && npm run start -w @riverfront/desktop",
+    "dist:win": "npm run build:desktop && npm run dist:win -w @riverfront/desktop",
+    "dist:mac": "npm run build:desktop && npm run dist:mac -w @riverfront/desktop",
+    "dist:linux": "npm run build:desktop && npm run dist:linux -w @riverfront/desktop",
+    "version:sync": "node scripts/sync-version.mjs",
+    "build:demo": "node scripts/build-demo.mjs",
+    "host:tunnel": "node scripts/host-tunnel.mjs",
+    "host:tunnel:cloudflare": "node scripts/host-tunnel.mjs --cloudflare",
+    "host:tunnel:tailscale": "node scripts/host-tunnel.mjs --tailscale",
+    "notices": "node scripts/third-party-notices.mjs"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

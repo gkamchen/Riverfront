@@ -1,0 +1,213 @@
+{
+ "paramsVersion": 6,
+ "priorsVersion": 3,
+ "defaults": {
+  "xadrez": {
+   "hitWeight": 40,
+   "bombMin": 0.45,
+   "repairSpare": 3,
+   "radarEnergy": 7,
+   "spyEnergy": 6,
+   "avoidPower": 3,
+   "touchPenalty": 0.4,
+   "priorStrength": 4
+  },
+  "abismo": {
+   "shieldValue": 1.5,
+   "spyValue": 1.2,
+   "bombBonus": 0.2,
+   "radarFactor": 0.45,
+   "repairValue": 0.43,
+   "repairEnergy": 7,
+   "minValue": 0.42,
+   "starveFactor": 0.4,
+   "avoidPower": 2,
+   "priorStrength": 4,
+   "towerBias": 1.25
+  }
+ },
+ "params": {
+  "xadrez": {
+   "hitWeight": 44.06,
+   "bombMin": 0.202,
+   "repairSpare": 1.09,
+   "radarEnergy": 9,
+   "spyEnergy": 6.544,
+   "avoidPower": 3.638,
+   "touchPenalty": 0.39,
+   "priorStrength": 4.042
+  },
+  "abismo": {
+   "shieldValue": 0.506,
+   "spyValue": 3.708,
+   "bombBonus": 0.35,
+   "radarFactor": 1.632,
+   "repairValue": 0.29,
+   "repairEnergy": 4.995,
+   "minValue": 0.373,
+   "starveFactor": 0.368,
+   "avoidPower": 2.757,
+   "priorStrength": 2.17,
+   "towerBias": 1.385
+  }
+ },
+ "use": {
+  "4": {
+   "params": true,
+   "priors": true
+  },
+  "5": {
+   "params": true,
+   "priors": true
+  }
+ },
+ "presets": [
+  "classic",
+  "full",
+  "rapido",
+  "rapido-poderes"
+ ],
+ "factions": [
+  "neutra",
+  "egito",
+  "roma",
+  "grecia"
+ ],
+ "searchGamesPerMutant": 160,
+ "finalGames": 400,
+ "search": [
+  {
+   "level": 4,
+   "generation": 0,
+   "mutant": 3,
+   "rate": 0.55,
+   "accepted": true
+  },
+  {
+   "level": 4,
+   "generation": 1,
+   "mutant": 0,
+   "rate": 0.54375,
+   "accepted": true
+  },
+  {
+   "level": 4,
+   "generation": 2,
+   "mutant": 2,
+   "rate": 0.51875,
+   "accepted": false
+  },
+  {
+   "level": 4,
+   "generation": 3,
+   "mutant": 0,
+   "rate": 0.5375,
+   "accepted": false
+  },
+  {
+   "level": 4,
+   "generation": 4,
+   "mutant": 3,
+   "rate": 0.51875,
+   "accepted": false
+  },
+  {
+   "level": 5,
+   "generation": 0,
+   "mutant": 1,
+   "rate": 0.50625,
+   "accepted": false
+  },
+  {
+   "level": 5,
+   "generation": 1,
+   "mutant": 3,
+   "rate": 0.54375,
+   "accepted": true
+  },
+  {
+   "level": 5,
+   "generation": 2,
+   "mutant": 2,
+   "rate": 0.475,
+   "accepted": false
+  },
+  {
+   "level": 5,
+   "generation": 3,
+   "mutant": 0,
+   "rate": 0.56875,
+   "accepted": true
+  },
+  {
+   "level": 5,
+   "generation": 4,
+   "mutant": 1,
+   "rate": 0.54375,
+   "accepted": true
+  }
+ ],
+ "results": [
+  {
+   "level": 4,
+   "gamesPerComparison": 400,
+   "trainedVsDefault": {
+    "wins": 224,
+    "losses": 176,
+    "rate": 0.56,
+    "margin95": 0.048645920692284156
+   },
+   "priorsOnlyVsDefault": {
+    "wins": 228,
+    "losses": 172,
+    "rate": 0.57,
+    "margin95": 0.04851742367438733
+   },
+   "use": {
+    "params": true,
+    "priors": true
+   },
+   "chosenVsDefault": {
+    "wins": 224,
+    "losses": 176,
+    "rate": 0.56,
+    "margin95": 0.048645920692284156
+   },
+   "msPerDecision": 0.39263499266511065,
+   "vsPrevious": {
+    "wins": 206,
+    "losses": 194,
+    "rate": 0.515,
+    "margin95": 0.04897794503651618
+   }
+  },
+  {
+   "level": 5,
+   "gamesPerComparison": 400,
+   "trainedVsDefault": {
+    "wins": 231,
+    "losses": 169,
+    "rate": 0.5775,
+    "margin95": 0.04840780902912257
+   },
+   "priorsOnlyVsDefault": {
+    "wins": 198,
+    "losses": 202,
+    "rate": 0.495,
+    "margin95": 0.04899754993874694
+   },
+   "use": {
+    "params": true,
+    "priors": true
+   },
+   "chosenVsDefault": {
+    "wins": 231,
+    "losses": 169,
+    "rate": 0.5775,
+    "margin95": 0.04840780902912257
+   },
+   "msPerDecision": 2.5273841683182883
+  }
+ ],
+ "seconds": 588
+}

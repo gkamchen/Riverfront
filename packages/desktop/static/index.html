@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Riverfront</title>
+    <link rel="stylesheet" href="launcher.css" />
+    <script src="launcher.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Riverfront</h1>
+        <p class="sub">Batalha por turnos na beira do rio</p>
+      </header>
+
+      <div class="cards">
+        <section class="card" id="card-jogar">
+          <h2>Jogar</h2>
+          <p>Partida contra o computador, neste aparelho.</p>
+          <button type="button" id="jogar">Jogar agora</button>
+        </section>
+
+        <section class="card" id="card-hospedar">
+          <h2>Hospedar partida</h2>
+          <p>Liga um servidor neste computador para um amigo entrar pela rede.</p>
+          <div id="host-off">
+            <label for="porta">Porta</label>
+            <div class="row">
+              <input id="porta" type="number" min="1024" max="65535" value="8787" />
+              <button type="button" id="ligar">Iniciar servidor</button>
+            </div>
+          </div>
+          <div id="host-on" hidden>
+            <p class="ok" id="host-info"></p>
+            <p>Seu amigo pode entrar por um destes endereços:</p>
+            <ul id="enderecos"></ul>
+            <div class="row">
+              <button type="button" id="abrir-hospedado">Abrir o jogo neste servidor</button>
+              <button type="button" class="ghost" id="desligar">Parar servidor</button>
+            </div>
+            <p class="dica">
+              Na mesma rede (Wi-Fi de casa), use o endereço que começa com 192.168 ou 10. Pela internet é preciso
+              liberar a porta no roteador. Se o Windows perguntar sobre o firewall, permita o acesso em redes privadas.
+            </p>
+          </div>
+          <p class="erro" id="host-erro" role="alert"></p>
+        </section>
+
+        <section class="card" id="card-entrar">
+          <h2>Entrar</h2>
+          <p>Conecte no servidor de um amigo ou num servidor dedicado.</p>
+          <label for="endereco">Endereço do servidor</label>
+          <input id="endereco" type="text" placeholder="192.168.0.10:8787" autocomplete="off" />
+          <label for="sala">Código da sala (opcional)</label>
+          <input id="sala" type="text" placeholder="K7Q2-PX" maxlength="9" autocomplete="off" />
+          <button type="button" id="entrar">Entrar</button>
+          <p class="erro" id="entrar-erro" role="alert"></p>
+        </section>
+      </div>
+      <footer id="versao"></footer>
+    </main>
+  </body>
+</html>

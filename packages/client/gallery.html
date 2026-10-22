@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riverfront · galeria</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --panel: rgba(18, 14, 11, 0.88);
+        --line: rgba(226, 187, 99, 0.25);
+        --gold: #e2bb63;
+        --text: #efe6d6;
+        --muted: #a99d8a;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; background: #0c0907; color: var(--text); font: 13px/1.35 system-ui, "Segoe UI", sans-serif; overflow: hidden; }
+      #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+      #panel {
+        position: fixed; top: 10px; left: 10px; bottom: 10px; width: 320px; display: flex; flex-direction: column;
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        backdrop-filter: blur(6px);
+      }
+      #panel header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+      #panel h1 { font-size: 15px; margin: 0; color: var(--gold); letter-spacing: 0.04em; }
+      #panel-body { overflow-y: auto; padding: 4px 12px 12px; flex: 1; }
+      #panel.collapsed { bottom: auto; }
+      #panel.collapsed #panel-body { display: none; }
+      #panel h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 12px 0 6px; border-top: 1px solid var(--line); padding-top: 8px; }
+      .row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+      button, select {
+        font: inherit; color: var(--text); background: #2a211a; border: 1px solid #4a3a2a; border-radius: 6px;
+        padding: 4px 8px; cursor: pointer; min-height: 30px;
+      }
+      select { width: 100%; }
+      button:hover, select:hover { border-color: var(--gold); }
+      button.on { background: #5a4520; border-color: var(--gold); }
+      label { display: flex; align-items: center; gap: 6px; color: var(--muted); margin: 4px 0; }
+      input[type="range"] { flex: 1; }
+      .info p { margin: 4px 0; }
+      .info strong { color: var(--gold); }
+      .names { margin: 6px 0 0; padding-left: 18px; color: var(--muted); }
+      .portraits { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 8px; }
+      .portraits figure { margin: 0; text-align: center; }
+      .portraits canvas { width: 100%; height: auto; border-radius: 6px; display: block; }
+      .portraits figcaption { font-size: 10px; color: var(--muted); margin-top: 2px; }
+      #stats {
+        position: fixed; top: 10px; right: 10px; padding: 6px 10px; background: var(--panel); border: 1px solid var(--line);
+        border-radius: 8px; font: 12px/1.4 ui-monospace, Consolas, monospace; white-space: pre; min-width: 170px;
+      }
+      #toast { position: fixed; bottom: 14px; right: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; opacity: 0; transition: opacity 0.3s; }
+      #toast.show { opacity: 1; }
+      #sheet { position: fixed; inset: 0; z-index: 10; background: rgba(8, 6, 4, 0.94); overflow: auto; padding: 12px; cursor: zoom-out; }
+      .sheet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+      .sheet-grid figure { margin: 0; }
+      .sheet-grid canvas { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 6px; }
+      .sheet-grid figcaption { color: var(--gold); margin-top: 4px; }
+      /* Phones: the panel becomes a bottom sheet that starts folded. */
+      @media (max-width: 700px) {
+        #panel { top: auto; left: 6px; right: 6px; bottom: 6px; width: auto; max-height: 62vh; }
+        #panel.collapsed { top: auto; bottom: 6px; }
+        #stats { font-size: 10px; min-width: 0; padding: 4px 6px; top: 6px; right: 6px; }
+        #toast { bottom: auto; top: 96px; right: 8px; }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+    <aside id="panel">
+      <header><h1>Riverfront · galeria</h1><button id="panel-toggle" type="button" aria-label="Mostrar ou ocultar o painel">☰</button></header>
+      <div id="panel-body"></div>
+    </aside>
+    <div id="stats">…</div>
+    <div id="toast"></div>
+    <script type="module" src="/src/scene/gallery/gallery.ts"></script>
+  </body>
+</html>

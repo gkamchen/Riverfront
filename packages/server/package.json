@@ -1,0 +1,44 @@
+{
+  "name": "@riverfront/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Servidor autoritativo do Riverfront (WebSocket): salas, partidas 1x1, amigos e perfis.",
+  "author": "Gustavo Kamchen <gkamchen@gmail.com>",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkamchen/Riverfront.git",
+    "directory": "packages/server"
+  },
+  "homepage": "https://github.com/gkamchen/Riverfront",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "bin": {
+    "riverfront-server": "./dist/riverfront-server.cjs"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node build.mjs",
+    "start": "node dist/riverfront-server.cjs",
+    "dev": "node src/cli.ts",
+    "test": "vitest run --exclude test/load.test.ts",
+    "test:load": "vitest run test/load.test.ts"
+  },
+  "dependencies": {
+    "@riverfront/protocol": "0.1.0",
+    "@riverfront/core": "0.1.0",
+    "ws": "8.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/ws": "8.18.2",
+    "esbuild": "0.28.2",
+    "vitest": "5.0.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

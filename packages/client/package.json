@@ -1,0 +1,32 @@
+{
+  "name": "@riverfront/client",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cliente 3D (Three.js) do Riverfront.",
+  "author": "Gustavo Kamchen <gkamchen@gmail.com>",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkamchen/Riverfront.git",
+    "directory": "packages/client"
+  },
+  "homepage": "https://github.com/gkamchen/Riverfront",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@riverfront/protocol": "0.1.0",
+    "@riverfront/ai": "0.1.0",
+    "@riverfront/core": "0.1.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/three": "0.186.0",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  }
+}

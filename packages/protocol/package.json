@@ -1,0 +1,30 @@
+{
+  "name": "@riverfront/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mensagens, validadores e regras compartilhadas entre o cliente e o servidor do Riverfront.",
+  "author": "Gustavo Kamchen <gkamchen@gmail.com>",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkamchen/Riverfront.git",
+    "directory": "packages/protocol"
+  },
+  "homepage": "https://github.com/gkamchen/Riverfront",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@riverfront/core": "0.1.0"
+  },
+  "devDependencies": {
+    "vitest": "5.0.5"
+  }
+}
